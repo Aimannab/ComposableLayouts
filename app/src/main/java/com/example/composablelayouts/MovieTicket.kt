@@ -6,10 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -37,10 +34,7 @@ class MovieTicket : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeLayoutsTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    MovieTicketCard()
-                }
+                MovieTicketCard()
             }
         }
     }
@@ -48,49 +42,54 @@ class MovieTicket : ComponentActivity() {
 
 @Composable
 fun MovieTicketCard(modifier: Modifier = Modifier) {
-    Row(
+    Column(
         movieCardModifier(modifier)
     ) {
-        Surface(
-            modifier = Modifier.size(50.dp),
-            shape = CircleShape,
-            color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
-        ) {
-            Image(
-                painter = painterResource(id = R.mipmap.ic_the_great_gatsby_foreground),
-                contentDescription = "The Great Gatsby",
-                Modifier.background(Color.Black)
-            )
-        }
-        Column(
-            modifier = Modifier
-                .padding(start = 8.dp)
-                .align(Alignment.CenterVertically)
-        ) {
-            Text(
-                text = "🎉 MOVIE NIGHT 🎉",
-                style = TextStyle(
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Black,
-                )
-            )
-            Text(
-                text = "The Great Gatsby",
+        Text(
+            text = "⭐ CINEMA TICKET ⭐",
+            style = TextStyle(
                 color = Color.White,
-                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Black,
             )
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                Text(
-                    text = "Friday | March 7 | 9pm",
-                    color = Color.White,
-                    style = MaterialTheme.typography.body2
+        )
+        Spacer(modifier = modifier.height(8.dp))
+        Row {
+            Surface(
+                modifier = Modifier.size(50.dp),
+                shape = CircleShape,
+                color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
+            ) {
+                Image(
+                    painter = painterResource(id = R.mipmap.ic_the_great_gatsby_foreground),
+                    contentDescription = "The Great Gatsby",
+                    Modifier.background(Color.Black)
                 )
+            }
+            Column(
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .align(Alignment.CenterVertically)
+            ) {
                 Text(
-                    text = "Seat XX | Row YY",
+                    text = "The Great Gatsby",
                     color = Color.White,
-                    style = MaterialTheme.typography.body2
+                    fontWeight = FontWeight.Bold,
                 )
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                    Text(
+                        text = "Friday | March 7 | 9pm",
+                        color = Color.White,
+                        style = MaterialTheme.typography.body2,
+                        fontSize = 10.sp
+                    )
+                    Text(
+                        text = "Seat XX | Row YY",
+                        color = Color.White,
+                        style = MaterialTheme.typography.body2,
+                        fontSize = 10.sp
+                    )
+                }
             }
         }
     }
@@ -104,6 +103,7 @@ private fun movieCardModifier(modifier: Modifier) = modifier
     .clickable(onClick = { "/* Ignoring onClick*/" })
     .padding(16.dp) //is included in the clickable area
     .graphicsLayer {
+        shadowElevation = 8.dp.toPx()
         shape = MovieTicketShape(24.dp.toPx())
         clip = true
     }
@@ -119,7 +119,7 @@ private fun movieCardModifier(modifier: Modifier) = modifier
             )
         }
     }
-    .padding(start = 32.dp, top = 64.dp, 32.dp, bottom = 64.dp)
+    .padding(start = 32.dp, top = 34.dp, 32.dp, bottom = 34.dp)
 
 @Preview(showBackground = true)
 @Composable
